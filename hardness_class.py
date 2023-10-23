@@ -20,6 +20,8 @@ class hardness:
         
         self.sens=self.data['sensitive_hosts']
         self.fire=self.data['firewall']
+        
+
     
     def cell_count(self, matrix, row, col):
         rows, cols = len(matrix), len(matrix[0])
@@ -67,5 +69,22 @@ class hardness:
             top_matrix[row][col] = top_matrix[row][col] * FIRE_SCORE
         
         return top_matrix
+    
+    def average_grade(self):
+        #gets the sum of all values in the matrix
+        total = 0
+        for row in self.score():
+            for value in row:
+                total += value
+        
+        #gets the average of all values in the matrix
+        #average = total score / number of cells
+        
+        row = len(self.topology)
+        col = len(self.topology[0])
+        average = total / (row * col)
+        
+        return average
+        
     
         
