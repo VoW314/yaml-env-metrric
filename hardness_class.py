@@ -21,14 +21,16 @@ class hardness:
         self.sens=self.data['sensitive_hosts']
         self.fire=self.data['firewall']
         
+    def original_top(self):
+        return self.topology
 
-    
     def cell_count(self, matrix, row, col):
         rows, cols = len(matrix), len(matrix[0])
         ones = 0
         
         # kernel
         #gets the cell above, below, left, and right of current cell
+        #think of it like a cross or plus sign 
         kernel = [(-1, 0), (1, 0), (0, -1), (0, 1)]
         
         for dr, dc in kernel:
