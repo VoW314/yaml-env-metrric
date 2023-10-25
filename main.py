@@ -12,10 +12,12 @@ original_top = grade.original_top()
 scored_matrix = grade.score()
 final_grade = grade.average_grade()
 
-
+print("FINAL GRADE:")
+print(final_grade)
 #converted these to csv for easier analysis
 df = pd.DataFrame(original_top)
 df.to_csv('original_top.csv')
 
 df = pd.DataFrame(scored_matrix)
 df.to_csv('scored_matrix.csv')
+
