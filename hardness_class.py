@@ -6,6 +6,7 @@ import yaml
 
 
 #scores
+#arbitrary values I gave
 SENS_SCORE = 0.5
 FIRE_SCORE = 1.5
 
@@ -20,6 +21,9 @@ class hardness:
         
         self.sens=self.data['sensitive_hosts']
         self.fire=self.data['firewall']
+        
+        
+        self.br="\n"
         
     def original_top(self):
         return self.topology
@@ -50,31 +54,36 @@ class hardness:
             for col in range(cols):
                 ones = self.cell_count(matrix, row, col)
                 counts_matrix[row][col] = ones
-        
+
         return counts_matrix
+    
     
     def score(self):
         top_matrix = self.one_count(self.topology)
         
+        #sensitive hosts
         for x in self.sens:
             coordinate_string = x
-            coordinate_list = [int(x) for x in coordinate_string.strip('()').split(',')]
-            row, col = coordinate_list
+            coordinate = [int(x) for x in coordinate_string.strip('()').split(',')]
+            row, col = coordinate
             #multiply the matrix by the sensitivity score
             top_matrix[row][col] = top_matrix[row][col] * SENS_SCORE
         
+        #firewalls
         for x in self.fire:
             coordinate_string = x
-            coordinate_list = [int(x) for x in coordinate_string.strip('()').split(',')]
-            row, col = coordinate_list
+            coordinate = [int(x) for x in coordinate_string.strip('()').split(',')]
+            row, col = coordinate
             #multiply the matrix by the sensitivity score
             top_matrix[row][col] = top_matrix[row][col] * FIRE_SCORE
         
+   
         return top_matrix
     
     def average_grade(self):
         #gets the sum of all values in the matrix
         total = 0
+
         for row in self.score():
             for value in row:
                 total += value
@@ -84,9 +93,13 @@ class hardness:
         
         row = len(self.topology)
         col = len(self.topology[0])
-        average = total / (row * col)
+        area = row * col
+        average = total / area
         
-        return average
+        return average, area
+    
+    def return_matrix(self):
+        return self.one_count(self.topology)
         
     
         
