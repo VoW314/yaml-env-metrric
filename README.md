@@ -15,3 +15,35 @@ More information ["Here"](https://docs.google.com/presentation/d/1XRaDJQtkY0n9Do
 ## The Kernel
 
 below is the closest image explanation I could find online of what I designed: ![plus kernel](https://www.researchgate.net/publication/370331269/figure/fig2/AS:11431281176001065@1689992480753/Decomposed-calculation-of-cross-shaped-kernel_Q320.jpg)
+
+--------------------------------
+
+## Current Ideas
+
+My current idea is to assign the arbitrary values earlier to the actual costs of "hacking" the host
+This of course will require more work and developing a way to actually read from the file what a host does
+
+For example: if we want to get through (1,0) on the medium.yaml file
+
+the .yaml tells us:
+``` os: linux
+ services: [http]
+ processes: []
+ ```
+
+the cost of a http exploit: 
+```
+ e_http:
+    service: http
+    os: None
+    prob: 0.9
+    cost: 2
+    access: user
+```
+
+There is also no firewall on (1, 0)
+
+so we would give the host at (1, 0) a difficulty factor of 2 as the total cost to get through it on 1 try
+would be a 2. Also you could bring in the entire chances/probablility aspect. 
+
+There are many ways to grade this. 
