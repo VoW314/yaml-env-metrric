@@ -1,3 +1,13 @@
+'''
+This class grades the yaml files for dificulty. It does this by 
+getting the attributes of the yaml file and preforming basic calculations
+
+Author: Shreyas B.
+'''
+
+
+
+#imports
 from yaml.loader import SafeLoader
 import pandas as pd 
 import yaml
@@ -101,5 +111,6 @@ class hardness:
     def return_matrix(self):
         return self.one_count(self.topology)
         
+
     
         

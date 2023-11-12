@@ -1,5 +1,6 @@
 import pandas as pd
 from hardness_class import *
+from dfs_class import * #deep search first
 
 #visualizations
 import plotly.express as px
@@ -21,6 +22,8 @@ df.to_csv('original_top.csv')
 
 df = pd.DataFrame(scored_matrix)
 df.to_csv('scored_matrix.csv')
+
+
 
 #uncomment below if you want to create a heatmap. 
 #otherwise I kept images in the visuals_oct28 folder
