@@ -108,8 +108,26 @@ class hardness:
         
         return average, area
     
+    def get_last_host(self):
+        """
+        This will get the last host in the environment.
+        Returns coorindates of this host to be used by the 
+        dfs class.
+        """
+        x_cord = 0
+        y_cord = 0
+        
+        for i in range(len(self.topology)):
+            for j in range(len(self.topology[0])):
+                if self.topology[i][j] == 1:
+                    last_host = (i,j)
+        
+        return last_host
+    
     def return_matrix(self):
         return self.one_count(self.topology)
+    
+
         
 
     

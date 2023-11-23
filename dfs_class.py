@@ -18,26 +18,18 @@ Author Shreyas B
 import pandas as pd
 import numpy as np
 import yaml
-from hardness_class.py import * 
+from hardness_class import *
 
 #code actual
 class dfs:
-    def __init__(self, filename):
+    def __init__(self, filename, ends):
         self.filename = filename
         
         with open(filename, 'r') as f:
             self.data = (yaml.load(f, Loader=SafeLoader))
         
         self.topology = self.data['topology']
-        self.end(0,0) #ending coordinates
-
-    
-    def get_ends(self):
-        #assigns user input values into the ending coordinates
-        #always will start at 0,0 so we don't need user input starts
-        x = int(insert("x-coordinate ending: "))
-        y = int(insert("y-coordinate ending: "))
-        return self.end(x,y)
+        self.ends = ends #ends will be a coordinate
     
     def dfs_start(self, matrix, start, end):
         self.rows, self.cols = len(matrix), len(matrix[0])

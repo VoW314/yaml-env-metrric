@@ -1,9 +1,13 @@
+
 import pandas as pd
-from hardness_class import *
 from dfs_class import * #deep search first
+from hardness_class import *
 
 #visualizations
 import plotly.express as px
+
+#console view
+from rich import * 
 
 #CODE ACTUAL
 grade = hardness("test.yaml")
@@ -13,6 +17,8 @@ matrix_1 = grade.return_matrix()
 # Calculate scores and store them in a separate variable
 scored_matrix = grade.score()
 final_grade, area = grade.average_grade()
+last_host = grade.get_last_host() #gets the coordinates of the last host
+
 
 print("FINAL GRADE:")
 print(final_grade, "from area:", area)
@@ -24,9 +30,11 @@ df = pd.DataFrame(scored_matrix)
 df.to_csv('scored_matrix.csv')
 
 
-long_path = dfs("test.yaml")
+long_path = dfs("test.yaml", (last_host))
 #uncomment below if you want to create a heatmap. 
 #otherwise I kept images in the visuals_oct28 folder
+
+
 
 '''
 #create visual aid using a plotly heatmap
