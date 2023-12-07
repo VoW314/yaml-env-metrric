@@ -38,35 +38,6 @@ class hardness:
     def original_top(self):
         return self.topology
 
-    def cell_count(self, matrix, row, col):
-        rows, cols = len(matrix), len(matrix[0])
-        ones = 0
-        
-        # kernel
-        #gets the cell above, below, left, and right of current cell
-        #think of it like a cross or plus sign 
-        kernel = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-        
-        for dr, dc in kernel:
-            r, c = row + dr, col + dc
-            #finds the number of ones within the kernel
-            if 0 <= r < rows and 0 <= c < cols:
-                if matrix[r][c] == 1:
-                    ones += 1
-        
-        return ones
-    
-    def one_count(self, matrix):
-        rows, cols = len(matrix), len(matrix[0])
-        counts_matrix = [[0 for _ in range(cols)] for _ in range(rows)]
-        
-        for row in range(rows):
-            for col in range(cols):
-                ones = self.cell_count(matrix, row, col)
-                counts_matrix[row][col] = ones
-
-        return counts_matrix
-    
     
     def score(self):
         top_matrix = self.one_count(self.topology)
