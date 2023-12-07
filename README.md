@@ -10,7 +10,7 @@ The ["Hardness Class"](https://github.com/VoW314/yaml-env-metrric/blob/main/hard
 
 
 
-More information ["Here"](https://docs.google.com/presentation/d/1XRaDJQtkY0n9DoOsXBn5KaGmi1GaTiuPHxKL4vHgLPo/edit?usp=sharing)
+More information ["Here"]([https://docs.google.com/presentation/d/1XRaDJQtkY0n9DoOsXBn5KaGmi1GaTiuPHxKL4vHgLPo/edit?usp=sharing](https://docs.google.com/presentation/d/1zNz78BoZ65SwHJPfSkeVozT-rVMClB7pXzyeMHtYEvE/edit?usp=sharing))
 
 ## The Kernel
 
