@@ -16,12 +16,13 @@ original_top = grade.original_top()
 matrix_1 = grade.return_matrix()
 # Calculate scores and store them in a separate variable
 scored_matrix = grade.score()
-final_grade, area = grade.average_grade()
+final_grade, area, edge = grade.average_grade()
 last_host = grade.get_last_host() #gets the coordinates of the last host
 
 
 print("FINAL GRADE:")
 print(final_grade, "from area:", area)
+print (edge)
 #converted these to csv for easier analysis
 df = pd.DataFrame(original_top)
 df.to_csv('original_top.csv')

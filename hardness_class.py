@@ -32,7 +32,9 @@ class hardness:
         self.sens=self.data['sensitive_hosts']
         self.fire=self.data['firewall']
         
-        
+        self.area = 0
+        self.score = 0
+        self.edges = 0 
         self.br="\n"
         
     def original_top(self):
@@ -76,8 +78,15 @@ class hardness:
         col = len(self.topology[0])
         area = row * col
         average = total / area
+        self.area = area
         
-        return average, area
+        #every host can be attacked again 
+        #also every host can be linked to another host in the attacks
+        edges = area * area
+        self.edges = edges
+        
+        
+        return average, area, edges
     
     def get_last_host(self):
         """
@@ -98,8 +107,4 @@ class hardness:
     def return_matrix(self):
         return self.one_count(self.topology)
     
-
-        
-
     
-        
