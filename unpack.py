@@ -74,3 +74,10 @@ class grade:
         console.print(table)
         #return
         return array
+    
+    def topology_tree(self):
+        """
+        Creates a tree diagram for the topology
+        using the rich library
+        """
+        pass
