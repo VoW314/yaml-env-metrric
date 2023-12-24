@@ -107,4 +107,8 @@ class hardness:
     def return_matrix(self):
         return self.one_count(self.topology)
     
+
+
+
+    
     
