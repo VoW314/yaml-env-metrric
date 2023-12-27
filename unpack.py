@@ -34,8 +34,6 @@ class grade:
         into different types that can be used later
         """
         
-        array = np.zeros((self.row, self.col))
-        
         #console
         table = Table(title="Host Table")
         table.add_column("Coordinates")
@@ -56,28 +54,30 @@ class grade:
                     os = ''.join(value)
                 elif (parts == 'services'):
                     services = ', '.join(value)
-                else:
+                elif (parts =="processes"):
                     processes =', '.join(value)
+                else:
+                    pass
                     
       
             table.add_row(key, os, services, processes)
             
-            key = key.replace(" ", "") #in the case that there is no " " in the yaml
-            x = int(key[1])
-            y = int(key[3])
-            array[y,x] = 1
-            
-
-        
-    
         #prints table to console for user view
         console.print(table)
-        #return
-        return array
     
-    def topology_tree(self):
+    def top_tree(self):
         """
         Creates a tree diagram for the topology
         using the rich library
         """
-        pass
+        # topology is a list
+        print(self.topology)
+        
+        
+        # firewalls are dictionary
+        
+        
+        
+        
+        
+        

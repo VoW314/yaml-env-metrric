@@ -16,5 +16,6 @@ import plotly.express as px
 #CODE ACTUAL
 grade= grade("test.yaml")
 hosts = grade.unpack_hosts()
-print(hosts)
+#print(hosts) #this array actually doesn't hold anything of value
+grade.top_tree()
 
