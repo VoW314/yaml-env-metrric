@@ -24,9 +24,40 @@ class grade:
         self.col = len(self.topology[0])
         
         #grading varaibles
-        self.area = 0
+        self.area = self.row * self.col
+        
         self.score = 0
-        self.edges = 0 
+      
+    
+    
+    def cell_count(self, row, col):
+        ones = 0
+        
+        # kernel
+        #gets the cell above, below, left, and right of current cell
+        #think of it like a cross or plus sign 
+        kernel = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
+        for dr, dc in kernel:
+            r, c = row + dr, col + dc
+            #finds the number of ones within the kernel
+            if 0 <= r < self.row and 0 <= c < self.col:
+                if self.topology[r][c] == 1:
+                    ones += 1
+        
+        return ones
+    
+    def one_count(self):
+        counts_matrix = [[0 for _ in range(self.col)] for _ in range(self.row)]
+        
+        for row in range(self.row):
+            for col in range(self.col):
+                ones = self.cell_count(row, col)
+                counts_matrix[row][col] = ones
+        
+        return counts_matrix
+
+        
     
     def unpack_hosts(self):
         """
@@ -36,10 +67,16 @@ class grade:
         
         #console
         table = Table(title="Host Table")
-        table.add_column("Coordinates")
+        table.add_column("(Subnet#, Host#)")
         table.add_column("OS")
         table.add_column("Services")
         table.add_column("Processes")
+        print(self.topology[0])
+        print(self.topology[1])
+        print(self.topology[2])
+        print(self.topology[3])
+        print(self.topology[4])
+        print(self.topology[5])
         
         console = Console()
         
@@ -70,14 +107,13 @@ class grade:
         Creates a tree diagram for the topology
         using the rich library
         """
-        # topology is a list
-        print(self.topology)
+
+
         
-        
+
         # firewalls are dictionary
-        
-        
-        
+        for key,value in self.fire.items():
+            print(key,value)
         
         
         
