@@ -15,20 +15,46 @@ class grade:
         
         #gets data the enviroment file
         self.topology = self.data['topology']
-        self.hosts = self.data['host_configurations']
-        self.sens=self.data['sensitive_hosts']
-        self.fire=self.data['firewall']
         
-        #row and column size variables
-        self.row = len(self.topology)
-        self.col = len(self.topology[0])
+        if (self.validation() == True):
+            self.hosts = self.data['host_configurations']
+            self.sens=self.data['sensitive_hosts']
+            self.fire=self.data['firewall']
+            
+            #row and column size variables
+            self.row = len(self.topology)
+            self.col = len(self.topology[0])
+            
+            #grading varaibles
+            self.area = self.row * self.col
+            
+            self.score = 0
         
-        #grading varaibles
-        self.area = self.row * self.col
+    def validation(self):
+        """_summary_
+        A 1 in the first row and column indicate that
+        the network is connected to the internet. If the
+        network is not connected to the internet, then an agent
+        that comes from the internet will be unable to access the network.
         
-        self.score = 0
-      
+        
+        Returns:
+            _type_: bool. True means it passes validation.
+        """
+        
+        
+        if (self.topology[0][0] == 1):
+            return True
+        else:
+            return False
     
+    
+    """
+    _Summary_
+    
+    Below code is the actual unpacking of the network data
+        
+    """
     
     def cell_count(self, row, col):
         ones = 0
@@ -71,12 +97,6 @@ class grade:
         table.add_column("OS")
         table.add_column("Services")
         table.add_column("Processes")
-        print(self.topology[0])
-        print(self.topology[1])
-        print(self.topology[2])
-        print(self.topology[3])
-        print(self.topology[4])
-        print(self.topology[5])
         
         console = Console()
         

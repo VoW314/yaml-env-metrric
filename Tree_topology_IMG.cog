@@ -65,9 +65,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": -24.80564965803461,
-      "y": -1501.123304118495,
-      "lastActivityTimestamp": 1703894977392
+      "x": 58.02590697138453,
+      "y": -1888.853376892854,
+      "lastActivityTimestamp": 1703897858054
     },
     {
       "id": "page:Iw5SrK0iCNS9koSW1Vlys",
@@ -76,8 +76,8 @@
       "typeName": "page"
     },
     {
-      "x": 480.145694299729,
-      "y": 1502.6174470084936,
+      "x": 281.70484467878305,
+      "y": 1969.5370931754253,
       "z": 1.0708480658388095,
       "id": "camera:page:Iw5SrK0iCNS9koSW1Vlys",
       "typeName": "camera"
