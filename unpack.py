@@ -2,6 +2,7 @@ from yaml.loader import SafeLoader
 import pandas as pd 
 import yaml
 import numpy as np
+from validation import * 
 
 from rich.console import Console
 from rich.table import Table
@@ -11,50 +12,31 @@ class grade:
         self.filename = filename
         
         with open(filename, 'r') as f:
-            self.data = (yaml.load(f, Loader=SafeLoader))
+            data = (yaml.load(f, Loader=SafeLoader))
         
         #gets data the enviroment file
-        self.topology = self.data['topology']
+        self.topology = data['topology']
+        #row and column size variables
+        self.col = len(self.topology)
+        self.row = len(self.topology[0])
         
-        if (self.validation() == True):
-            self.hosts = self.data['host_configurations']
-            self.sens=self.data['sensitive_hosts']
-            self.fire=self.data['firewall']
-            
-            #row and column size variables
-            self.row = len(self.topology)
-            self.col = len(self.topology[0])
+        #does a file validation on the yaml
+        is_valid = validate(filename)        
+        
+        if (is_valid.validation() == True):
+            #very long unpacking of validation
+            self.subnets, self.sens_hosts, self.os, self.services, self.processes, self.exploits, self.priv_esc, self.ssc, self.osc, self.sbc, self.psc, self.host_configs, self.fire = is_valid.return_data() 
             
             #grading varaibles
-            self.area = self.row * self.col
+            self.area = self.row ^ 2
             
             self.score = 0
-        
-    def validation(self):
-        """_summary_
-        A 1 in the first row and column indicate that
-        the network is connected to the internet. If the
-        network is not connected to the internet, then an agent
-        that comes from the internet will be unable to access the network.
-        
-        
-        Returns:
-            _type_: bool. True means it passes validation.
-        """
-        
-        
-        if (self.topology[0][0] == 1):
-            return True
         else:
-            return False
-    
-    
-    """
-    _Summary_
-    
-    Below code is the actual unpacking of the network data
+            raise TypeError("There is an issue in the yaml file. Validation returned False.")
         
-    """
+        #no longer need the validation object
+        del is_valid
+        
     
     def cell_count(self, row, col):
         ones = 0
@@ -127,13 +109,10 @@ class grade:
         Creates a tree diagram for the topology
         using the rich library
         """
-
-
+        
         
 
         # firewalls are dictionary
         for key,value in self.fire.items():
             print(key,value)
-        
-        
-        
+    
