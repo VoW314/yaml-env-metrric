@@ -25,7 +25,7 @@ class validate:
         if(self.has_internet_connection()):
             if (self.is_bidrectional()):
                 if(self.full_env()):
-                    console.print(self.filename + " works", style = "green")
+                    console.print("- "+self.filename + " valid", style = "green")
                     return True
                 
                 else:

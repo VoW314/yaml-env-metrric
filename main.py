@@ -13,10 +13,16 @@ import plotly.express as px
 
 
 #CODE ACTUAL
-grade= grade("test.yaml")
-hosts = grade.unpack_hosts()
 
+#Test different vanilla files to prove it works
+grade_med = grade("medium.yaml")
+grade_med_multi = grade("medium_multi.yaml")
+grade_tiny = grade("tiny.yaml")
+
+
+
+#hosts = grade.unpack_hosts()
 #print(hosts) #this array actually doesn't hold anything of value
-grade.top_tree()
+#grade.top_tree()
 
 
