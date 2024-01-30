@@ -1,8 +1,8 @@
 from yaml.loader import SafeLoader
 import yaml
 import numpy as np
-
-
+from rich.console import Console
+console = Console()
 
 #sources:
 #https://github.com/Jjschwartz/NetworkAttackSimulator/blob/master/nasim/scenarios/benchmark/medium-multi-site.yaml
@@ -22,14 +22,18 @@ class validate:
         self.row = len(self.topology[0])
     
     def validation(self):
-        print("Validating")
         if(self.has_internet_connection()):
             if (self.is_bidrectional()):
                 if(self.full_env()):
+                    console.print(self.filename + " works", style = "green")
                     return True
-                raise AssertionError("Not All Components were found")
-            raise AssertionError("The environment is not bidirectional")
-        raise ValueError("There is no internet connection")
+                
+                else:
+                    raise AssertionError("Not All Components were found")
+            else:
+                raise AssertionError("The environment is not bidirectional")
+        else:
+            raise ValueError("There is no internet connection")
         
         #default return false
         return False
@@ -108,7 +112,9 @@ class validate:
             self.psc = self.data['process_scan_cost']
             
             self.hc = self.data['host_configurations']
-            self.fw = self.data['firewall']   
+            self.fw = self.data['firewall']  
+            return True
+            
         except:
             return False
         

@@ -2,7 +2,7 @@ from yaml.loader import SafeLoader
 import pandas as pd 
 import yaml
 import numpy as np
-from validation import * 
+from validation import *
 
 from rich.console import Console
 from rich.table import Table
