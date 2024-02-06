@@ -41,6 +41,10 @@ class hardness:
         return self.topology
 
     
+    
+    
+    # ignore below. This is older code that
+    #will be removed in the future. 
     def score(self):
         top_matrix = self.one_count(self.topology)
         

@@ -49,7 +49,7 @@ class validate:
         
         
         Returns:
-            _type_: bool. True means it passes validation.
+            bool: True means it passes validation.
         """
         
         
@@ -61,35 +61,19 @@ class validate:
     def is_bidrectional(self):
         """
         _summary_
-        
-        A method that compares the topology to
-        its transpose to find the if the 
-        network is bidirectional. Using Linear Alg. we 
-        know the transpose of the topology and the original
-        will be the same if they topology is symmetrical. 
-        
-        Uses the numpy transpose for arrays
+        Bidrectionality means the matrix is symmetrical.
+        The method returns True if the matrix is bidirectional.
         
         Returns:
-            _type_: bool. True means it passes validation.
+            bool: True if bidirectional. False if not. 
         """
-        
-        #row = col or it won't work. Also NASIM won't work properly so this check is made. 
-        if (self.row != self.col):
-            return False
-        
-        transposed= np.transpose(self.topology) #transposes the topology        
-        return np.allclose(self.topology, transposed, rtol=0, atol=0) #compares with tolerance of 0
-    
-        #if this doesn't work like intended implement something like below
-        """
-        for i in range(len(self.topology)):
-            for j in range(len(self.topology):
+        for i in range(self.col):
+            for j in range(self.row):
                 if(self.topology[i][j] != self.topology[j][i]):
                     return False
                 
         return True
-        """
+        
     
     def full_env(self):
         """_summary_
@@ -120,7 +104,9 @@ class validate:
         
     def return_data(self):
         """
-        returns all the components
+        returns:
+            dictionary: many dictionaries containg the 
+            components of the yaml file.
         """
         #subnets, sensitive hosts, os, services, processes, exploits, priv escalations, service cost, os cost, subnet cost, process cost, host configs, firewall
         return self.sb, self.sh, self.os, self.s, self.p, self.e, self.pe, self.ssc, self.osc, self.sbc, self.psc, self.hc, self.fw

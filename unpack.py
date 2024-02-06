@@ -38,32 +38,7 @@ class grade:
         del is_valid
         
     
-    def cell_count(self, row, col):
-        ones = 0
-        
-        # kernel
-        #gets the cell above, below, left, and right of current cell
-        #think of it like a cross or plus sign 
-        kernel = [(-1, 0), (1, 0), (0, -1), (0, 1)]
-
-        for dr, dc in kernel:
-            r, c = row + dr, col + dc
-            #finds the number of ones within the kernel
-            if 0 <= r < self.row and 0 <= c < self.col:
-                if self.topology[r][c] == 1:
-                    ones += 1
-        
-        return ones
-    
-    def one_count(self):
-        counts_matrix = [[0 for _ in range(self.col)] for _ in range(self.row)]
-        
-        for row in range(self.row):
-            for col in range(self.col):
-                ones = self.cell_count(row, col)
-                counts_matrix[row][col] = ones
-        
-        return counts_matrix
+   
 
         
     
@@ -81,7 +56,7 @@ class grade:
         table.add_column("Processes")
         
         console = Console()
-        
+        self.hosts = self.host_configs
         """
         Unpacks the host dictionary from the yaml file
         """
@@ -103,16 +78,18 @@ class grade:
             
         #prints table to console for user view
         console.print(table)
+        
+        #TODO: create a way to use this in the subnet
+        #calculations and other later methods
+        
+        
+        
+    def subnet_calcualtions():
+        number_of_subnets = len(self.subnets)
+        
+        #the first subnet is the DMZ of the network
+        pass
+        
+            
     
-    def top_tree(self):
-        """
-        Creates a tree diagram for the topology
-        using the rich library
-        """
-        
-        
-
-        # firewalls are dictionary
-        for key,value in self.fire.items():
-            print(key,value)
     

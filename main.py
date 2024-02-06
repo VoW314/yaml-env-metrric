@@ -19,7 +19,7 @@ grade_med = grade("medium.yaml")
 grade_med_multi = grade("medium_multi.yaml")
 grade_tiny = grade("tiny.yaml")
 
-
+grade_med.unpack_hosts()
 
 #hosts = grade.unpack_hosts()
 #print(hosts) #this array actually doesn't hold anything of value
