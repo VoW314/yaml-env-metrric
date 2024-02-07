@@ -1,49 +1,51 @@
 # NASIM YAML GRADER
-
-by Shreyas
-version 1
+-----
+by Shreyas B
+Version 2
+Last Updated: 2/6/24
 -------------------------------------
 
-## Class 
+## Classes
 
-The ["Hardness Class"](https://github.com/VoW314/yaml-env-metrric/blob/main/hardness_class.py)takes in a .yaml file and reads it in for grading. It currently just does one file at a time. The code creates a grade based off the values within the topology of the 2D array. It does require that the headers of each dictionary are properly written but the order of parts of the file does not matter. 
+**Validation:** The validation class is responsible for validating the .yaml files before they are ready for grading. It checks all components of the yaml file to make sure that if run on NASIM, a proper environment can be made for the simulation. 
 
+**Unpack:** The unpack class is responsible for unpacking from the .yaml files and converting them into more readable variables and types into which can be read in and graded.
 
+---------
 
-More information ["Here"]([https://docs.google.com/presentation/d/1XRaDJQtkY0n9DoOsXBn5KaGmi1GaTiuPHxKL4vHgLPo/edit?usp=sharing](https://docs.google.com/presentation/d/1zNz78BoZ65SwHJPfSkeVozT-rVMClB7pXzyeMHtYEvE/edit?usp=sharing)
+## Current Idea
 
-## The Kernel
+The current Idea for how to grade this can be found in the ".cog" files in the project. 
 
-below is the closest image explanation I could find online of what I designed: ![plus kernel](https://www.researchgate.net/publication/370331269/figure/fig2/AS:11431281176001065@1689992480753/Decomposed-calculation-of-cross-shaped-kernel_Q320.jpg)
+The grader will grade mainly based off the number
+of exploitable services, the costs of scans and exploits, and 
+how much the network is segmented. 
 
---------------------------------
+#### Exploitable Services
+Exploitable services includes: schtask, daclsvc, and tomcat. These are services that hosts have that can be exploited in the NASIM environment. Less exploitable services means that agents would likely have a longer initial learning time. 
 
-## Current Ideas
+#### Cost of Scans
+This is a similar concept to our 2023 paper. 
 
-My current idea is to assign the arbitrary values earlier to the actual costs of "hacking" the host
-This of course will require more work and developing a way to actually read from the file what a host does
+#### Network Segmentation
 
-For example: if we want to get through (1,0) on the medium.yaml file
+More segmentation mean a smaller attack surface or potential entry points for an attacker attempting to breach the network environment. These calculations will also attempt to use how networks are connected to each other for the final grading.
 
-the .yaml tells us:
-``` os: linux
- services: [http]
- processes: []
- ```
+For example: **If we are given the subnet array of [1,5,2]. Also the sensitive host is in subnet 3.** 
 
-the cost of a http exploit: 
-```
- e_http:
-    service: http
-    os: None
-    prob: 0.9
-    cost: 2
-    access: user
-```
+Subnet 1 is always the DMZ. If we were to connect the DMZ to 
+the subnet 2 and 3 directly, then this would be less secure than just connecting the DMZ to subnet 2. This is due to the nature of the DMZ being a buffer zone between the internet and the internal network. 
 
-There is also no firewall on (1, 0)
+---
+### Updated Slides
+WIP
 
-so we would give the host at (1, 0) a difficulty factor of 2 as the total cost to get through it on 1 try
-would be a 2. Also you could bring in the entire chances/probablility aspect. 
+------
+### References
 
-There are many ways to grade this. 
+1) https://github.com/Jjschwartz/NetworkAttackSimulator/blob/master/nasim/scenarios/benchmark/medium-multi-site.yaml
+
+2) https://networkattacksimulator.readthedocs.io/en/latest/tutorials/creating_scenarios.html
+
+3) https://networkattacksimulator.readthedocs.io/en/latest/tutorials/scenarios.html
+
