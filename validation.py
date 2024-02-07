@@ -25,9 +25,11 @@ class validate:
         if(self.has_internet_connection()):
             if (self.is_bidrectional()):
                 if(self.full_env()):
-                    console.print("- "+self.filename + " valid", style = "green")
-                    return True
-                
+                    if(self.deep_check()):
+                        console.print("- "+self.filename + " valid", style = "green")
+                        return True
+                    else:
+                        raise ValueError("issue within file")
                 else:
                     raise AssertionError("Not All Components were found")
             else:
@@ -97,11 +99,35 @@ class validate:
             
             self.hc = self.data['host_configurations']
             self.fw = self.data['firewall']  
+            
+            #make asserts for arrays and dictionaries
             return True
             
         except:
             return False
         
+    def deep_check(self):
+        """_summary_
+        
+        Checks that the configurations are all correct
+        Within the dictionary making sure it contains
+        processes, os, and services.
+        """
+        
+        if (not self.host_check()):
+            return False
+        #elif()
+        
+        return True
+        
+    
+    
+    def host_check(self):
+
+            
+        return True
+            
+            
     def return_data(self):
         """
         returns:

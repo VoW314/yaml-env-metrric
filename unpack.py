@@ -42,7 +42,7 @@ class grade:
 
         
     
-    def unpack_hosts(self):
+    def read_hosts(self):
         """
         This function mainly just converts types 
         into different types that can be used later
@@ -79,8 +79,12 @@ class grade:
         #prints table to console for user view
         console.print(table)
         
+        
+        
+    def unpack_hosts(self):
         #TODO: create a way to use this in the subnet
         #calculations and other later methods
+        pass
         
         
         

@@ -65,9 +65,9 @@
     {
       "id": "pointer:pointer",
       "typeName": "pointer",
-      "x": -121.63499460962066,
-      "y": -2138.361343650387,
-      "lastActivityTimestamp": 1707256399483
+      "x": 59.800018310546875,
+      "y": -4.600006103515625,
+      "lastActivityTimestamp": 1707258111376
     },
     {
       "id": "page:Iw5SrK0iCNS9koSW1Vlys",
@@ -76,9 +76,9 @@
       "typeName": "page"
     },
     {
-      "x": 638.5922691467553,
-      "y": 2417.518279071478,
-      "z": 0.4255670842372424,
+      "x": 464.27321350869096,
+      "y": 1427.1319325138038,
+      "z": 0.5439978794583227,
       "id": "camera:page:Iw5SrK0iCNS9koSW1Vlys",
       "typeName": "camera"
     },
@@ -115,7 +115,7 @@
       "brush": null,
       "scribble": null,
       "cursor": {
-        "type": "default",
+        "type": "cross",
         "color": "black",
         "rotation": 0
       },
@@ -126,14 +126,14 @@
       "screenBounds": {
         "x": 0,
         "y": 0,
-        "w": 606,
+        "w": 633.2000122070312,
         "h": 721.2000122070312
       },
       "zoomBrush": null,
       "isGridMode": false,
       "isPenMode": false,
       "id": "instance:instance",
-      "currentPageId": "page:Iw5SrK0iCNS9koSW1Vlys",
+      "currentPageId": "page:PfWKkVUaA89jrEwl04Bal",
       "typeName": "instance"
     },
     {
@@ -143,9 +143,9 @@
       "typeName": "page"
     },
     {
-      "x": 2609.4077702300046,
-      "y": 2225.894545677301,
-      "z": 1,
+      "x": 2625.497174474668,
+      "y": 2495.110688203,
+      "z": 0.5904900000000001,
       "id": "camera:page:9SipqjNY_934RoisL4aXX",
       "typeName": "camera"
     },
@@ -747,8 +747,8 @@
       "typeName": "shape"
     },
     {
-      "x": 321.60020446777344,
-      "y": 11.200042724609375,
+      "x": 212.0001678466797,
+      "y": -5.599945068359375,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
@@ -873,8 +873,8 @@
       "typeName": "shape"
     },
     {
-      "x": 563.4000244140625,
-      "y": 12.799999237060547,
+      "x": 453.79998779296875,
+      "y": -3.999988555908203,
       "rotation": 0,
       "isLocked": false,
       "opacity": 1,
@@ -1456,6 +1456,115 @@
       },
       "parentId": "page:Iw5SrK0iCNS9koSW1Vlys",
       "index": "aq",
+      "typeName": "shape"
+    },
+    {
+      "x": 302.60003662109375,
+      "y": -255.00000762939453,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "id": "shape:3dqHMoOJmk-qPO_oMOmW_",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 0.5
+              },
+              {
+                "x": 0,
+                "y": 0,
+                "z": 0.5
+              },
+              {
+                "x": 0,
+                "y": 0,
+                "z": 0.5
+              }
+            ]
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false
+      },
+      "parentId": "page:PfWKkVUaA89jrEwl04Bal",
+      "index": "a8",
+      "typeName": "shape"
+    },
+    {
+      "x": 59.800018310546875,
+      "y": -4.600006103515625,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "id": "shape:a4Hz3nb0nu7FRZnSFaW29",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 0.5
+              }
+            ]
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false
+      },
+      "parentId": "page:PfWKkVUaA89jrEwl04Bal",
+      "index": "a9",
+      "typeName": "shape"
+    },
+    {
+      "x": 59.800018310546875,
+      "y": -4.600006103515625,
+      "rotation": 0,
+      "isLocked": false,
+      "opacity": 1,
+      "id": "shape:IBt74fTn0AF6s3CUMs2bR",
+      "type": "draw",
+      "props": {
+        "segments": [
+          {
+            "type": "free",
+            "points": [
+              {
+                "x": 0,
+                "y": 0,
+                "z": 0.5
+              }
+            ]
+          }
+        ],
+        "color": "black",
+        "fill": "none",
+        "dash": "draw",
+        "size": "m",
+        "isComplete": true,
+        "isClosed": false,
+        "isPen": false
+      },
+      "parentId": "page:PfWKkVUaA89jrEwl04Bal",
+      "index": "aA",
       "typeName": "shape"
     },
     {

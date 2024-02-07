@@ -1,0 +1,115 @@
+#Author: Utsav Manandhar, Akhilesh, Hemansh, Justin
+#Date: 2023-11-13
+#Purpose: YAML Team Deliverable for 2023-11-16  
+
+#3 subnets
+#5 hosts
+#2 OS
+#3 services
+#3 exploits
+#2 priv esc
+
+
+#Subnet 1: 1 host
+#Subnet 2: 1 host
+#Subnet 3: 3 hosts
+subnets: [1,1,3]
+
+#The first row and first column are designated for the internet
+topology: [[ 1, 1, 0, 0],
+           [ 1, 1, 1, 1],
+           [ 0, 1, 1, 1],
+           [ 0, 1, 1, 1]]
+
+os:
+    - linux
+    - windows
+
+services:
+    - ssh
+    - ftp
+    - http
+    - html
+
+processes:
+    - tomcat
+    - daclsvc
+
+host_configurations:
+    (1,0):
+        os: linux
+        services: [ssh, http]
+        processes: [tomcat]
+        firewall:
+            (3,0): [ssh]
+            (3,1): [ssh]
+    (2,0):
+        os: linux
+        services: [ftp, ssh]
+    (3,0):
+        os: windows
+        services: [ssh]
+        processes: [daclsvc]
+    (3,1):
+        os: windows
+        services: [ssh]
+        processes: [daclsvc]
+    (3,2):
+        os: windows
+        services: [ssh]
+        processes: [daclsvc]
+    
+firewall:
+    (0,1): [html]
+    (1,0): [html, ftp, ssh, http]
+    (1,2): [ftp]
+    (2,1): [ftp]
+    (1,3): []
+    (3,1): [html, ftp, ssh, http]
+    (2,3): [ftp, ssh]
+    (3,2): [ftp, ssh]
+
+exploits:
+    e_ssh:
+       service: ssh
+       os: windows
+       prob: 0.6
+       cost: 2
+       access: user
+    e_ftp:
+        service: ftp
+        os: linux
+        prob: 0.9
+        cost: 1
+        access: root
+    e_http:
+        service: http
+        os: none
+        prob: 1.0
+        cost: 3
+        access: user
+
+privilege_escalation:
+    pe_tomcat:
+        process: tomcat
+        os: linux
+        prob: 1.0
+        cost: 1
+        access: root
+    pe_daclsvc:
+        process: daclsvc
+        os: windows
+        prob: 1.0
+        cost: 1
+
+#scan cost
+service_scan_cost: 1
+os_scan_cost: 2
+process_scan_cost: 1
+subnet_scan_cost: 1
+
+sensitive_hosts:
+  (2,0): 1000
+  (3,2): 1000
+
+step_limit: 1000
