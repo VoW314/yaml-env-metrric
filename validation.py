@@ -22,20 +22,22 @@ class validate:
         self.row = len(self.topology[0])
     
     def validation(self):
+        console.print()
         if(self.has_internet_connection()):
             if (self.is_bidrectional()):
                 if(self.full_env()):
-                    if(self.deep_check()):
-                        console.print("- "+self.filename + " valid", style = "green")
+                    if(self.type_check()):
+                        console.print("- "+self.filename + " VALID", style = "green")
                         return True
                     else:
-                        raise ValueError("issue within file")
+                        console.print("- "+self.filename + " INVALID", style = "red")                 
                 else:
-                    raise AssertionError("Not All Components were found")
+                    console.print("- "+self.filename + " INVALID", style = "red")
+                    console.print(self.filename + " does not contain all required elements", style = "yellow")
             else:
-                raise AssertionError("The environment is not bidirectional")
+                console.print("- "+self.filename + " INVALID", style = "red")
         else:
-            raise ValueError("There is no internet connection")
+            console.print("- "+self.filename + " INVALID", style = "red")
         
         #default return false
         return False
@@ -106,7 +108,7 @@ class validate:
         except:
             return False
         
-    def deep_check(self):
+    def type_check(self):
         """_summary_
         
         Checks that the configurations are all correct
@@ -114,17 +116,57 @@ class validate:
         processes, os, and services.
         """
         
-        if (not self.host_check()):
+        if(not self.host_check()):
             return False
-        #elif()
+        
         
         return True
         
+    def subnets_and_top_check(self):
+        """_summary_
+            Checks the subnets and topology
+
+        Returns:
+            _boolean_: Returns True subnets and topology are both arrays
+        """
+        
+        
+        
+    def sensitive_host_check(self):
+        pass
     
     
     def host_check(self):
+        
+        """_summary_
+            Checks if the host configurations contains: 'os', 
+            'services', and 'processes'. Then checks the values of each
+            key to make sure they are the correct type
 
+        Returns:
+            _boolean_: Returns True if the host_configurations 
+            are valid. False if there is an issue
+        """
+        
+        for coord, config in self.hc.items():
+
+            if not all(key in config for key in ['os', 'services', 'processes']):
+                console.print(f"Missing keys in host configuration at {coord} in {self.filename}", style = "yellow")
+                return False
             
+            if not isinstance(config['os'], str):
+                console.print(f"Invalid 'os' value type at {coord} in {self.filename}", style = "yellow")
+                return False
+            
+            if not isinstance(config['services'], list):
+                console.print(f"Invalid 'services' value type at {coord} in {self.filename}", style = "yellow")
+                return False
+            
+            if not isinstance(config['processes'], list):
+                console.print(f"Invalid 'processes' value type at {coord} in {self.filename}", style = "yellow")
+                return False
+            
+        
         return True
             
             
