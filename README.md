@@ -38,7 +38,8 @@ the subnet 2 and 3 directly, then this would be less secure than just connecting
 
 ---
 ### Updated Slides
-WIP
+
+https://docs.google.com/presentation/d/1SuRPHGwO-Lcoj1oZTQPTOEVT97nqyIbn7Nkk72cqkH0/edit?usp=sharing
 
 ------
 ### References
