@@ -23,26 +23,33 @@ class validate:
     
     def validation(self):
         console.print()
-        if(self.has_internet_connection()):
-            if (self.is_bidrectional()):
-                if(self.full_env()):
-                    if(self.type_check()):
-                        console.print("- "+self.filename + " VALID", style = "green")
-                        return True
-                    else:
-                        console.print("- "+self.filename + " INVALID", style = "red")                 
-                else:
-                    console.print("- "+self.filename + " INVALID", style = "red")
-                    console.print(self.filename + " does not contain all required elements", style = "yellow")
-            else:
-                console.print("- "+self.filename + " INVALID", style = "red")
-        else:
-            console.print("- "+self.filename + " INVALID", style = "red")
+        isValid = True
         
-        #default return false
-        return False
     
-    def has_internet_connection(self):
+        if (not self.internet_connection()):
+            isValid = False
+            
+        if (not self.is_bidrectional()):
+            isValid = False
+        
+        if (not self.full_env()):
+            isValid = False
+        
+        if (not self.type_check()):
+            isValid = False        
+            
+                 
+        #if validation failed 
+        if (isValid == False):
+           console.print(f"- {self.filename} INVALID", style = "red")
+        else:
+            console.print(f"- {self.filename} VALID", style = "green")
+        
+        
+        #return true if validation succeeded. false if not.
+        return isValid
+    
+    def internet_connection(self):
         """_summary_
         
         1st check: 
@@ -60,6 +67,7 @@ class validate:
         if (self.topology[0][0] == 1):
             return True
         else:
+            console.print(f"{self.filename} + Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
             return False
         
     def is_bidrectional(self):
