@@ -1,7 +1,12 @@
 from yaml.loader import SafeLoader
 import yaml
 import numpy as np
+
+
 from rich.console import Console
+from rich import inspect
+
+
 console = Console()
 
 #sources:
@@ -21,8 +26,9 @@ class validate:
         self.col = len(self.topology)
         self.row = len(self.topology[0])
     
+    #DDD
     def validation(self):
-        console.print()
+        console.print(f"{self.filename.upper()}:", style = "bold underline")
         isValid = True
         
     
@@ -41,12 +47,16 @@ class validate:
                  
         #if validation failed 
         if (isValid == False):
-           console.print(f"- {self.filename} INVALID", style = "red")
+            console.print(f"- {self.filename} INVALID", style = "red")
+            console.print()
+            console.print(self.data)
+           
         else:
             console.print(f"- {self.filename} VALID", style = "green")
         
         
         #return true if validation succeeded. false if not.
+        console.print()
         return isValid
     
     def internet_connection(self):
@@ -67,7 +77,7 @@ class validate:
         if (self.topology[0][0] == 1):
             return True
         else:
-            console.print(f"{self.filename} + Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
+            console.print(f"> Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
             return False
         
     def is_bidrectional(self):
@@ -116,6 +126,9 @@ class validate:
         except:
             return False
         
+        
+        
+    #EEE
     def type_check(self):
         """_summary_
         
@@ -123,20 +136,49 @@ class validate:
         Within the dictionary making sure it contains
         processes, os, and services.
         """
+        isValid = True
         
         if(not self.host_check()):
-            return False
+            isValid = False
+        
+        if(not self.yaml_lists_check()):
+            isValid = False
         
         
-        return True
         
-    def subnets_and_top_check(self):
+        
+        return isValid
+      
+    def yaml_lists_check(self):
         """_summary_
-            Checks the subnets and topology
+            Checks the subnets, topology, os, services, and processes
 
         Returns:
             _boolean_: Returns True subnets and topology are both arrays
         """
+        isValid = True
+        
+        if(not isinstance(self.sb, list)):
+            console.print(f"> Invalid subnets value type. Must be list, not {type(self.sb)}.", style = "yellow")
+            isValid = False
+            
+        if (not isinstance(self.topology, list)):
+            console.print(f"> Invalid topology value type. Must be list, not {type(self.toplogy)}.", style = "yellow")
+            isValid = False 
+            
+        if(not isinstance(self.s, list)):
+            console.print(f"> Invalid services value type. Must be list, not {type(self.s)}.", style = "yellow")
+            isValid = False
+            
+        if(not isinstance(self.p, list)):
+            console.print(f"> Invalid processes value type. Must be list, not{type(self.p)}.", style = "yellow")
+            isValid = False
+        
+        if (not isinstance(self.os, list)):
+            console.print(f"> Invalid os value type. Must be list, not {type(self.os)}.", style = "yellow")
+            isValid = False
+            
+        return isValid
         
         
         
@@ -144,6 +186,9 @@ class validate:
         pass
     
     
+    
+    
+    #RRR
     def host_check(self):
         
         """_summary_
@@ -155,27 +200,39 @@ class validate:
             _boolean_: Returns True if the host_configurations 
             are valid. False if there is an issue
         """
-        
+        isValid = True
         for coord, config in self.hc.items():
 
-            if not all(key in config for key in ['os', 'services', 'processes']):
-                console.print(f"Missing keys in host configuration at {coord} in {self.filename}", style = "yellow")
-                return False
+            try: 
+                if (not all(key in config for key in ['os', 'services', 'processes'])):
+                    console.print(f"> Missing keys in host configuration at {coord}. Must include ['os', 'services', 'processes']", style = "yellow")
+                    isValid = False
+            except:
+                pass
             
-            if not isinstance(config['os'], str):
-                console.print(f"Invalid 'os' value type at {coord} in {self.filename}", style = "yellow")
-                return False
+            try:    
+                if (not isinstance(config['os'], str)):
+                    console.print(f"> Invalid os value type at {coord}. Must be a String, not {type(config['os'])}.", style = "yellow")
+                    isValid = False
+            except:
+                pass
             
-            if not isinstance(config['services'], list):
-                console.print(f"Invalid 'services' value type at {coord} in {self.filename}", style = "yellow")
-                return False
+            try:    
+                if (not isinstance(config['services'], list)):
+                    console.print(f"> Invalid services value type at {coord}. Must be a list, not {type(config['services'])}.", style = "yellow")
+                    isValid = False
+            except:
+                pass
             
-            if not isinstance(config['processes'], list):
-                console.print(f"Invalid 'processes' value type at {coord} in {self.filename}", style = "yellow")
-                return False
+            try:
+                if (not isinstance(config['processes'], list)):
+                    console.print(f"> Invalid processes value type at {coord}. Must be a list, not {type(config['processes'])}.", style = "yellow")
+                    isValid = False
+            except:
+                pass
             
         
-        return True
+        return isValid
             
             
     def return_data(self):

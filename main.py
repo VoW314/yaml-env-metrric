@@ -18,7 +18,7 @@ import plotly.express as px
 grade_med = grade("medium.yaml")
 grade_med_multi = grade("medium_multi.yaml")
 grade_tiny = grade("tiny.yaml")
-grade_itter1 = grade("itteration1.yaml")
+grade_itter1 = grade("test.yaml")
 
 grade_med.read_hosts()
 grade_med.unpack_hosts()
