@@ -60,7 +60,7 @@ host_configurations:
 firewall:
     (0,1): [html]
     (1,0): [html, ftp, ssh, http]
-    (1,2): [ftp]
+    (1,2): "ftp"
     (2,1): [ftp]
     (1,3): []
     (3,1): [html, ftp, ssh, http]
@@ -102,7 +102,7 @@ privilege_escalation:
 
 #scan cost
 service_scan_cost: 1
-os_scan_cost: 2
+os_scan_cost: "2"
 process_scan_cost: 1
 subnet_scan_cost: 1
 

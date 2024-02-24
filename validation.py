@@ -47,6 +47,7 @@ class validate:
                  
         #if validation failed 
         if (isValid == False):
+            console.print()
             console.print(f"- {self.filename} INVALID", style = "red")
             console.print()
             console.print(self.data)
@@ -127,6 +128,12 @@ class validate:
             return False
         
         
+    """
+    ----------------------------------------------------------------
+    Below is the start of the "Deeper checks". These check the data types
+    within the YAML file to make sure they are correct. 
+    ----------------------------------------------------------------
+    """
         
     #EEE
     def type_check(self):
@@ -144,10 +151,22 @@ class validate:
         if(not self.yaml_lists_check()):
             isValid = False
         
+        if(not self.costs()):
+            isValid = False
+            
+        if(not self.firewall_check()):
+            isValid = False
+            
+        if(not self.exploit_check()):
+            isValid = False
         
         
         
+        if(not self.priv_check()):
+            isValid = False
+
         return isValid
+      
       
     def yaml_lists_check(self):
         """_summary_
@@ -168,25 +187,84 @@ class validate:
             
         if(not isinstance(self.s, list)):
             console.print(f"> Invalid services value type. Must be list, not {type(self.s)}.", style = "yellow")
+            console.print(f"> Invalid services type. Must be list, not {type(self.s)}.", style = "yellow")
             isValid = False
             
         if(not isinstance(self.p, list)):
             console.print(f"> Invalid processes value type. Must be list, not{type(self.p)}.", style = "yellow")
+            console.print(f"> Invalid processes type. Must be list, not{type(self.p)}.", style = "yellow")
             isValid = False
         
         if (not isinstance(self.os, list)):
             console.print(f"> Invalid os value type. Must be list, not {type(self.os)}.", style = "yellow")
+            console.print(f"> Invalid OS type. Must be list, not {type(self.os)}.", style = "yellow")
             isValid = False
             
+        #makes a break in output to help make debugging easier   
+        if (isValid == False):
+            console.print()
+            
         return isValid
+    
+    def costs(self):
+        #self.ssc, self.osc, self.sbc, self.psc,
+        isValid = True
         
+        if(not isinstance(self.ssc, int)):
+            console.print(f"> Invalid service scan value type. Must be integer, not{type(self.ssc)}.", style = "yellow")
+            isValid = False
         
+        if(not isinstance(self.osc, int)):
+            console.print(f"> Invalid OS scan type. Must be integer, not {type(self.osc)}.", style = "yellow")
+            isValid = False
+            
+        if(not isinstance(self.sbc, int)):
+            console.print(f"> Invalid subnet scan type. Must be integer, not{type(self.sbc)}.", style = "yellow")
+            isValid = False
         
     def sensitive_host_check(self):
         pass
+        if(not isinstance(self.psc, int)):
+            console.print(f"> Invalid processes scan type. Must be integer, not{type(self.psc)}.", style = "yellow")
+            isValid = False
+            
+        #makes a break in output to help make debugging easier   
+        if (isValid == False):
+            console.print()
+        
+        return isValid
     
+    def firewall_check(self):
+        isValid = True
+        for coord, config in self.fw.items():
+            if(not isinstance(config, list)):
+                console.print(f"> Invalid type at {coord}. Must be list, not{type(config)}.", style = "yellow")
+                isValid = False
+
+        return isValid
     
+    def exploit_check(self):
+        isValid = True
+        
+        for coord, config in self.e.items():
+            if (not all(key in config for key in ['service', 'os', 'prob', 'cost', 'access'])):
+                    console.print(f"> Missing keys at {coord} in host configuration. Must include ['os', 'services', 'prob', 'cost', 'access']", style = "yellow")
+                    isValid = False
+                    
+        
+                    
+        
+         
+        if (isValid == False):
+            console.print()
+        return isValid
     
+    def priv_check(self):
+        isValid = True
+        
+        
+        
+        return isValid
     
     #RRR
     def host_check(self):
@@ -202,10 +280,12 @@ class validate:
         """
         isValid = True
         for coord, config in self.hc.items():
+            
 
             try: 
                 if (not all(key in config for key in ['os', 'services', 'processes'])):
                     console.print(f"> Missing keys in host configuration at {coord}. Must include ['os', 'services', 'processes']", style = "yellow")
+                    console.print(f"> Missing keys at {coord} in host configuration. Must include ['os', 'services', 'processes']", style = "yellow")
                     isValid = False
             except:
                 pass
@@ -213,6 +293,7 @@ class validate:
             try:    
                 if (not isinstance(config['os'], str)):
                     console.print(f"> Invalid os value type at {coord}. Must be a String, not {type(config['os'])}.", style = "yellow")
+                    console.print(f"> Invalid OS value type at {coord} in host configuration. Must be a String, not {type(config['os'])}.", style = "yellow")
                     isValid = False
             except:
                 pass
@@ -220,6 +301,7 @@ class validate:
             try:    
                 if (not isinstance(config['services'], list)):
                     console.print(f"> Invalid services value type at {coord}. Must be a list, not {type(config['services'])}.", style = "yellow")
+                    console.print(f"> Invalid services value type at {coord} in host configuration. Must be a list, not {type(config['services'])}.", style = "yellow")
                     isValid = False
             except:
                 pass
@@ -227,27 +309,16 @@ class validate:
             try:
                 if (not isinstance(config['processes'], list)):
                     console.print(f"> Invalid processes value type at {coord}. Must be a list, not {type(config['processes'])}.", style = "yellow")
+                    console.print(f"> Invalid processes value type at {coord} in host configuration. Must be a list, not {type(config['processes'])}.", style = "yellow")
                     isValid = False
             except:
                 pass
+         
+        #makes a break in output to help make debugging easier   
+        if (isValid == False):
+            console.print()
             
         
         return isValid
             
             
-    def return_data(self):
-        """
-        returns:
-            dictionary: many dictionaries containg the 
-            components of the yaml file.
-        """
-        #subnets, sensitive hosts, os, services, processes, exploits, priv escalations, service cost, os cost, subnet cost, process cost, host configs, firewall
-        return self.sb, self.sh, self.os, self.s, self.p, self.e, self.pe, self.ssc, self.osc, self.sbc, self.psc, self.hc, self.fw
-    
-        
-        
-    
-    
-        
-        
-              
