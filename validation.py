@@ -79,6 +79,7 @@ class validate:
             return True
         else:
             console.print(f"> Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
+            conole.print()
             return False
         
     def is_bidrectional(self):
@@ -93,6 +94,7 @@ class validate:
         for i in range(self.col):
             for j in range(self.row):
                 if(self.topology[i][j] != self.topology[j][i]):
+                    console.print(f"> Unparallel matrix found at {self.topology[i][j]}", style="yellow")
                     return False
                 
         return True
