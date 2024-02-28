@@ -15,6 +15,7 @@ console = Console()
 #https://networkattacksimulator.readthedocs.io/en/latest/tutorials/scenarios.html
 
 class validate:
+    # ~ Constructor --------------------------------
     def __init__(self, filename): 
         self.filename = filename
         
@@ -26,8 +27,14 @@ class validate:
         self.col = len(self.topology)
         self.row = len(self.topology[0])
     
-    #DDD
+    # ~ Public Methods --------------------------------
     def validation(self):
+        """_summary_: checks the validity of the yaml files.
+        This is a public method used in unpack.py
+
+        Returns:
+            _bool_: isValid
+        """
         console.print(f"{self.filename.upper()}:", style = "bold underline")
         isValid = True
         
@@ -35,19 +42,18 @@ class validate:
         if (not self.internet_connection()):
             isValid = False
             
-        if (not self.is_bidrectional()):
+        if (not self.__is_bidrectional()):
             isValid = False
         
-        if (not self.full_env()):
+        if (not self.__full_env()):
             isValid = False
         
-        if (not self.type_check()):
+        if (not self.__type_check()):
             isValid = False        
             
                  
         #if validation failed 
         if (isValid == False):
-            console.print()
             console.print(f"- {self.filename} INVALID", style = "red")
             console.print()
             console.print(self.data)
@@ -59,6 +65,21 @@ class validate:
         #return true if validation succeeded. false if not.
         console.print()
         return isValid
+    
+        
+    def return_data(self):
+        """
+        returns:
+            dictionary: many dictionaries containg the 
+            components of the yaml file.
+        """
+        #subnets, sensitive hosts, os, services, processes, exploits, priv escalations, service cost, os cost, subnet cost, process cost, host configs, firewall
+        return self.sb, self.sh, self.os, self.s, self.p, self.e, self.pe, self.ssc, self.osc, self.sbc, self.psc, self.hc, self.fw
+            
+
+    
+    
+    # ~ Private Methods --------------------------------
     
     def internet_connection(self):
         """_summary_
@@ -83,7 +104,7 @@ class validate:
             console.print()
             return False
         
-    def is_bidrectional(self):
+    def __is_bidrectional(self):
         """
         _summary_
         Bidrectionality means the matrix is symmetrical.
@@ -100,7 +121,7 @@ class validate:
         return True
         
     
-    def full_env(self):
+    def __full_env(self):
         """_summary_
         Checks that all components ot the document topology exist
         """
@@ -139,7 +160,7 @@ class validate:
     """
         
     #EEE
-    def type_check(self):
+    def __type_check(self):
         """_summary_
         
         Checks that the configurations are all correct
@@ -148,28 +169,28 @@ class validate:
         """
         isValid = True
         
-        if(not self.host_check()):
+        if(not self.__host_check()):
             isValid = False
 
-        if(not self.yaml_lists_check()):
+        if(not self.__yaml_lists_check()):
             isValid = False
             
-        if(not self.costs()):
+        if(not self.__costs()):
             isValid = False
 
-        if(not self.firewall_check()):
+        if(not self.__firewall_check()):
             isValid = False
             
-        if(not self.exploit_check()):
+        if(not self.__exploit_check()):
             isValid = False
         
-        if(not self.priv_check()):
+        if(not self.__priv_check()):
             isValid = False
 
         return isValid
       
       
-    def yaml_lists_check(self):
+    def __yaml_lists_check(self):
         """_summary_
             Checks the subnets, topology, os, services, and processes
 
@@ -207,7 +228,7 @@ class validate:
             
         return isValid
     
-    def costs(self):
+    def __costs(self):
         #self.ssc, self.osc, self.sbc, self.psc,
         isValid = True
         
@@ -222,30 +243,35 @@ class validate:
         if(not isinstance(self.sbc, int)):
             console.print(f"> Invalid subnet scan type. Must be integer, not{type(self.sbc)}.", style = "yellow")
             isValid = False
-        
-        return isValid
-        
-    def sensitive_host_check(self):
-        pass
+            
         if(not isinstance(self.psc, int)):
             console.print(f"> Invalid processes scan type. Must be integer, not{type(self.psc)}.", style = "yellow")
             isValid = False
             
-        #makes a break in output to help make debugging easier   
+            
         if (isValid == False):
             console.print()
-        
         return isValid
+
+
     
-    def firewall_check(self):
+    def __firewall_check(self):
+        """_summary_: checks the validity of 
+
+        Returns:
+            _bool_: isValid
+        """
         isValid = True
         for coord, config in self.fw.items():
             if(not isinstance(config, list)):
                 console.print(f"> Invalid type at {coord}. Must be list, not{type(config)}.", style = "yellow")
                 isValid = False
+                
+        if(isValid == False):
+            console.print()
         return isValid
     
-    def exploit_check(self):
+    def __exploit_check(self):
         isValid = True
         
         for coord, config in self.e.items():
@@ -256,7 +282,7 @@ class validate:
             console.print()
         return isValid
     
-    def priv_check(self):
+    def __priv_check(self):
         isValid = True
         
         
@@ -264,7 +290,7 @@ class validate:
         return isValid
     
     #RRR
-    def host_check(self):
+    def __host_check(self):
         
         """_summary_
             Checks if the host configurations contains: 'os', 
@@ -314,17 +340,5 @@ class validate:
         #makes a break in output to help make debugging easier   
         if (isValid == False):
             console.print()
-            
-        
         return isValid
     
-    
-    def return_data(self):
-        """
-        returns:
-            dictionary: many dictionaries containg the 
-            components of the yaml file.
-        """
-        #subnets, sensitive hosts, os, services, processes, exploits, priv escalations, service cost, os cost, subnet cost, process cost, host configs, firewall
-        return self.sb, self.sh, self.os, self.s, self.p, self.e, self.pe, self.ssc, self.osc, self.sbc, self.psc, self.hc, self.fw
-            
