@@ -42,7 +42,6 @@ class validate:
             isValid = False
         
         if (not self.type_check()):
-            console.print("Type check failed")
             isValid = False        
             
                  
@@ -81,7 +80,7 @@ class validate:
             return True
         else:
             console.print(f"> Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
-            conole.print()
+            console.print()
             return False
         
     def is_bidrectional(self):
@@ -151,27 +150,21 @@ class validate:
         
         if(not self.host_check()):
             isValid = False
-            print("hosts")
 
         if(not self.yaml_lists_check()):
             isValid = False
-            print("yaml")
             
         if(not self.costs()):
             isValid = False
-            print("cost")
 
         if(not self.firewall_check()):
             isValid = False
-            print("fire")
             
         if(not self.exploit_check()):
             isValid = False
-            print("exploit")
         
         if(not self.priv_check()):
             isValid = False
-            print("priv")
 
         return isValid
       
@@ -230,7 +223,7 @@ class validate:
             console.print(f"> Invalid subnet scan type. Must be integer, not{type(self.sbc)}.", style = "yellow")
             isValid = False
         
-        return
+        return isValid
         
     def sensitive_host_check(self):
         pass
