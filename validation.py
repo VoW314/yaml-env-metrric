@@ -42,6 +42,7 @@ class validate:
             isValid = False
         
         if (not self.type_check()):
+            console.print("Type check failed")
             isValid = False        
             
                  
@@ -76,6 +77,7 @@ class validate:
         
         
         if (self.topology[0][0] == 1):
+            
             return True
         else:
             console.print(f"> Is not connected to the internet. Make sure {0,0} is 1", style = "yellow")
@@ -96,7 +98,6 @@ class validate:
                 if(self.topology[i][j] != self.topology[j][i]):
                     console.print(f"> Unparallel matrix found at {self.topology[i][j]}", style="yellow")
                     return False
-                
         return True
         
     
@@ -122,11 +123,12 @@ class validate:
             
             self.hc = self.data['host_configurations']
             self.fw = self.data['firewall']  
-            
             #make asserts for arrays and dictionaries
             return True
             
         except:
+            console.print("> Unable to find all keys, maps, and lists found. Please read documentation", style="yellow")
+            console.print()
             return False
         
         
@@ -149,23 +151,27 @@ class validate:
         
         if(not self.host_check()):
             isValid = False
-        
+            print("hosts")
+
         if(not self.yaml_lists_check()):
             isValid = False
-        
+            print("yaml")
+            
         if(not self.costs()):
             isValid = False
-            
+            print("cost")
+
         if(not self.firewall_check()):
             isValid = False
+            print("fire")
             
         if(not self.exploit_check()):
             isValid = False
-        
-        
+            print("exploit")
         
         if(not self.priv_check()):
             isValid = False
+            print("priv")
 
         return isValid
       
@@ -224,6 +230,8 @@ class validate:
             console.print(f"> Invalid subnet scan type. Must be integer, not{type(self.sbc)}.", style = "yellow")
             isValid = False
         
+        return
+        
     def sensitive_host_check(self):
         pass
         if(not isinstance(self.psc, int)):
@@ -242,7 +250,6 @@ class validate:
             if(not isinstance(config, list)):
                 console.print(f"> Invalid type at {coord}. Must be list, not{type(config)}.", style = "yellow")
                 isValid = False
-
         return isValid
     
     def exploit_check(self):
@@ -251,12 +258,7 @@ class validate:
         for coord, config in self.e.items():
             if (not all(key in config for key in ['service', 'os', 'prob', 'cost', 'access'])):
                     console.print(f"> Missing keys at {coord} in host configuration. Must include ['os', 'services', 'prob', 'cost', 'access']", style = "yellow")
-                    isValid = False
-                    
-        
-                    
-        
-         
+                    isValid = False 
         if (isValid == False):
             console.print()
         return isValid
@@ -322,5 +324,14 @@ class validate:
             
         
         return isValid
-            
+    
+    
+    def return_data(self):
+        """
+        returns:
+            dictionary: many dictionaries containg the 
+            components of the yaml file.
+        """
+        #subnets, sensitive hosts, os, services, processes, exploits, priv escalations, service cost, os cost, subnet cost, process cost, host configs, firewall
+        return self.sb, self.sh, self.os, self.s, self.p, self.e, self.pe, self.ssc, self.osc, self.sbc, self.psc, self.hc, self.fw
             

@@ -23,6 +23,7 @@ class grade:
         #does a file validation on the yaml
         is_valid = validate(filename)        
         
+        #check the validation
         if (is_valid.validation() == True):
             #very long unpacking of validation
             self.subnets, self.sens_hosts, self.os, self.services, self.processes, self.exploits, self.priv_esc, self.ssc, self.osc, self.sbc, self.psc, self.host_configs, self.fire = is_valid.return_data() 
