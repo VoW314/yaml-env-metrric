@@ -38,7 +38,7 @@ privilege_escalation:
   pe_tomcat:
     process: tomcat
     os: linux
-    prob: 1.0
+    prob: 0.2
     cost: 1
     access: root
 service_scan_cost: 1

@@ -54,12 +54,13 @@ class validate:
                  
         #if validation failed 
         if (isValid == False):
-            console.print(f"- {self.filename} INVALID", style = "red")
+            console.print()
+            console.print(f"X {self.filename} INVALID", style = "red")
             console.print()
             console.print(self.data)
            
         else:
-            console.print(f"- {self.filename} VALID", style = "green")
+            console.print(f"✓ {self.filename} VALID", style = "green")
         
         
         #return true if validation succeeded. false if not.
@@ -113,11 +114,15 @@ class validate:
         Returns:
             bool: True if bidirectional. False if not. 
         """
+        
         for i in range(self.col):
             for j in range(self.row):
                 if(self.topology[i][j] != self.topology[j][i]):
                     console.print(f"> Unparallel matrix found at {self.topology[i][j]}", style="yellow")
+                    console.print()
                     return False
+                
+        
         return True
         
     
@@ -186,6 +191,7 @@ class validate:
         
         if(not self.__priv_check()):
             isValid = False
+        
 
         return isValid
       
@@ -214,7 +220,6 @@ class validate:
             
         if(not isinstance(self.p, list)):
             console.print(f"> Invalid processes value type. Must be list, not{type(self.p)}.", style = "yellow")
-            console.print(f"> Invalid processes type. Must be list, not{type(self.p)}.", style = "yellow")
             isValid = False
         
         if (not isinstance(self.os, list)):
@@ -272,6 +277,11 @@ class validate:
         return isValid
     
     def __exploit_check(self):
+        """_summary_: checks the validity of exploits
+
+        Returns:
+            isValid: Boolean
+        """
         isValid = True
         
         for coord, config in self.e.items():
@@ -283,10 +293,47 @@ class validate:
         return isValid
     
     def __priv_check(self):
+        """_summary_: checks the validity of privilege escalations
+
+        Returns:
+            isValid: Boolean
+        """
         isValid = True
+        process_list = self.data['processes']
         
+        priv_dict = self.data['privilege_escalation']
         
+        os_list = ['linux']
         
+
+        for key, value in priv_dict.items():
+    
+            #check that the process has already been defined
+            if value['process'] not in process_list:
+                console.print(f"> Invalid process found in 'privilige_escalation'. {value['process']} is undefined in 'processes at {key}' ", style="yellow")
+                isValid = False
+            
+            #WIP. For some reason self.data['os'] returns 1 
+            #if value['os'] not in os_list:
+                #console.print(f"> Invalid os. This check is a WIP so isValid remains True", style = "yellow")
+                #isValid = False
+                
+            #make sure that probability not > 1
+            if (value['prob'] > 1.0 or value['prob'] < 0.0):
+                console.print(f"> Invalid probability. Probability must be between 0 and 1, not {value['prob']} at {key}", style = "yellow")
+                isValid = False
+            
+            #make sure that cost is an integer
+            if (not isinstance(value['cost'], int)):
+                console.print(f"> Invalid cost. Cost must be an integer at {key}")
+                isValid = False
+            
+            #make sure access exists
+            #WIP
+                
+            
+                
+
         return isValid
     
     #RRR

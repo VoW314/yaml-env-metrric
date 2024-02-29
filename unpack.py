@@ -43,7 +43,7 @@ class grade:
 
         
     
-    def read_hosts(self):
+    def host_table(self):
         """
         This function mainly just converts types 
         into different types that can be used later

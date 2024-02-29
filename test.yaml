@@ -1,6 +1,4 @@
-#Author: Utsav Manandhar, Akhilesh, Hemansh, Justin
-#Date: 2023-11-13
-#Purpose: YAML Team Deliverable for 2023-11-16  
+#Adapted from YAML Team 1's file
 
 #3 subnets
 #5 hosts
@@ -91,13 +89,13 @@ privilege_escalation:
     pe_tomcat:
         process: tomcat
         os: linux
-        prob: 1.0
+        prob: 5
         cost: 1
         access: root
     pe_daclsvc:
         process: daclsvc
         os: windows
-        prob: 1.0
+        prob: -10
         cost: 1
 
 #scan cost
@@ -107,7 +105,7 @@ process_scan_cost: 1
 subnet_scan_cost: 1
 
 sensitive_hosts:
-  (2,0): 1000
-  (3,2): 1000
+  (2,0): 100
+  (3,2): 100
 
 step_limit: 1000
