@@ -80,12 +80,38 @@ class grade:
         #prints table to console for user view
         console.print(table)
         
+        """
+        A tougher environment can best be defined by the one
+        that the agent solves after a long time and get a lower score. 
         
         
-    def unpack_hosts(self):
-        #TODO: create a way to use this in the subnet
-        #calculations and other later methods
-        pass
+        Now: 
+        -----------
+        Exploitable Services
+        - Check the # of hosts w/ an exploit
+        - Check the probability of the said exploid
+        
+        Costs of Scan
+        - High cost of scans and actions will reduce the 
+        final reward of the agent through the enivonrmnet
+            > Issue caused by two similar files where one has
+            higher costs and the other has lower costs would 
+            make the grade better
+        
+        Segmentation (Basic)
+        - Number of total subnets not including the DMZ and internet
+        - Number of subnets w/ and w/o sensitive hosts
+        - Distance form DMZ to the sensitive host via firewall and subnet
+        connections
+            > Tag the subnets with sensitive hosts and differentiate them
+            from those without sensitive hosts
+            
+        Later: 
+        -------------
+        Segmentation (Advanced)
+        - Difficulty to also crack the hosts themself
+        - Firewall type and difficulty to pass check
+        """
         
         
         
