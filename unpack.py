@@ -1,3 +1,5 @@
+#Author: Shreyas Bera
+
 from yaml.loader import SafeLoader
 import pandas as pd 
 import yaml
@@ -6,6 +8,8 @@ from validation import *
 
 from rich.console import Console
 from rich.table import Table
+
+console = Console()
 
 class grade:
     def __init__(self, filename):
@@ -113,7 +117,53 @@ class grade:
         - Firewall type and difficulty to pass check
         """
         
+    def exploitable_services(self):
+        """
+        Returns a list of 3 numbers with the counts of the processes
+        [schtask, daclsvc, tomcat] multiplied by their respective probabilities
         
+        Did not do a dictionary as this code already has too many dictionaries
+        """
+        config = self.host_configs
+        escalation = self.priv_esc
+   
+        #[schtask, daclsvc, tomcat]
+        process_count = [0,0,0]
+        probs = [0,0,0]
+
+        #get values of counts
+        for coord, value in config.items():
+            for word in value['processes']:
+                if(word == "schtask"):
+                    process_count[0] += 1
+                elif(word == "daclsvc"):
+                    process_count[1] += 1
+                elif(word == "tomcat"):
+                    process_count[2] += 1
+         
+        #get probs of each priv_esc           
+        for key, value in escalation.items():
+            if(key == "pe_schtask"):
+                probs[0] = value['prob']
+            elif(key == "pe_daclsvc"):
+                probs[1] = value['prob']
+            elif(key == "pe_tomcat"):
+                probs[2] = value['prob']
+         
+        #numpy to do matrix multiplication       
+        m1, m2 = np.array(process_count), np.array(probs)
+    
+        return np.multiply(m1, m2)
+    
+    def scan_costs(self):
+        pass
+    
+    def segmentation(self):
+        pass
+                
+
+            
+            
         
     def subnet_calcualtions():
         number_of_subnets = len(self.subnets)

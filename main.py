@@ -1,3 +1,5 @@
+#Author: Shreyas Bera
+
 import pandas as pd
 from unpack import * 
 from grade import * 
@@ -18,7 +20,8 @@ import plotly.express as px
 grade_med = grade("medium.yaml")
 grade_med_multi = grade("medium_multi.yaml")
 grade_tiny = grade("tiny.yaml")
-grade_itter1 = grade("test.yaml")
+
+grade_tiny.exploitable_services()
 
 #hosts = grade.host_table()
 #print(hosts) #this array actually doesn't hold anything of value

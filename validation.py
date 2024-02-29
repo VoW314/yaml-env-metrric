@@ -1,3 +1,5 @@
+#Author: Shreyas Bera
+
 from yaml.loader import SafeLoader
 import yaml
 import numpy as np
@@ -13,7 +15,12 @@ console = Console()
 #https://github.com/Jjschwartz/NetworkAttackSimulator/blob/master/nasim/scenarios/benchmark/medium-multi-site.yaml
 #https://networkattacksimulator.readthedocs.io/en/latest/tutorials/creating_scenarios.html
 #https://networkattacksimulator.readthedocs.io/en/latest/tutorials/scenarios.html
+"""
+Validates the .yaml files before they are ran through NASIM.
+Also tells the issue with mistakes within the file so that the 
+user can fix them.
 
+"""
 class validate:
     # ~ Constructor --------------------------------
     def __init__(self, filename): 
@@ -288,6 +295,7 @@ class validate:
             if (not all(key in config for key in ['service', 'os', 'prob', 'cost', 'access'])):
                     console.print(f"> Missing keys at {coord} in host configuration. Must include ['os', 'services', 'prob', 'cost', 'access']", style = "yellow")
                     isValid = False 
+    
         if (isValid == False):
             console.print()
         return isValid
