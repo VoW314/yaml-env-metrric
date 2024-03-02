@@ -149,20 +149,83 @@ class grade:
                 probs[1] = value['prob']
             elif(key == "pe_tomcat"):
                 probs[2] = value['prob']
+                
          
         #numpy to do matrix multiplication       
         m1, m2 = np.array(process_count), np.array(probs)
     
         return np.multiply(m1, m2)
     
+    
     def scan_costs(self):
-        pass
+        """
+        Calculations based on scan_costs, priv_escalations, and exploit costs
+        
+        priv_escalation * access. 0.5 for user, 1 for root
+        
+        Return:
+        >  scan_costs = [service_scan_cost, os_scan_cost, subnet_scan_cost, process_scan_cost]
+        >  pe_costs   = [schtask, daclsvc, tomcat]
+        >  exp_costs  = {'ssh': n , 'ftp': n, ...}
+            
+        """
+        #scan cost
+        scan_costs = [self.ssc, self.osc, self.sbc, self.psc]
+        
+        #pe_costs
+        escalation = self.priv_esc
+        pe_costs = [0,0,0]
+        access = [0,0,0]
+        
+        for key, value in escalation.items():
+            if(key == "pe_schtask"):
+                pe_costs[0] = value['cost']
+                access[0] = self.__access_factor(value['access'])
+                
+            elif(key == "pe_daclsvc"):
+                pe_costs[1] = value['cost']
+                access[1] = self.__access_factor(value['access'])
+                
+            elif(key == "pe_tomcat"):
+                pe_costs[2] = value['cost']
+                access[2] = self.__access_factor(value['access'])
+                
+        m1 = np.array(pe_costs)
+        m2 = np.array(access)
+        
+        pe_costs = np.multiply(m1, m2)
+        
+        #exp_costs
+        exp_costs = {}
+
+        """
+        Write in dictionary as 'service name' : 'acces cost calculation'
+        
+        For example medium yields:
+            {'ssh': 0.5, 'ftp': 1, 'http': 0.5, 'samba': 1, 'smtp': 0.5}
+            
+        """
+        for key, value in self.exploits.items():
+            exp_costs[value['service']] = self.__access_factor(value['access'])
+
+        return scan_costs, pe_costs, exp_costs 
     
     def segmentation(self):
         pass
                 
 
-            
+    def __access_factor(self, value):
+        """
+        Private method in the case that user and root
+        are not the only two values for a specific privilege_escalation
+        or exploit
+        """
+        #user
+        if(value == "user"):
+            return 0.5
+        else:
+            #root
+            return 1
             
         
     def subnet_calcualtions():

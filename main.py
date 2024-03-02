@@ -21,7 +21,10 @@ grade_med = grade("medium.yaml")
 grade_med_multi = grade("medium_multi.yaml")
 grade_tiny = grade("tiny.yaml")
 
-grade_tiny.exploitable_services()
+grade_med.exploitable_services()
+grade_med.scan_costs()
+grade_med.segmentation()
+
 
 #hosts = grade.host_table()
 #print(hosts) #this array actually doesn't hold anything of value
