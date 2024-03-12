@@ -16,6 +16,12 @@ import plotly.express as px
 
 #CODE ACTUAL
 
+    """TODO
+    write a class later that reads a folder and does 
+    all the main functions so that main only calls one method
+    
+    """
+
 #Test different vanilla files to prove it works
 grade_med = grade("medium.yaml")
 grade_med_multi = grade("medium_multi.yaml")

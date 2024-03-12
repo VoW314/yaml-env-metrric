@@ -103,7 +103,7 @@ class grade:
             make the grade better
         
         Segmentation (Basic)
-        - Number of total subnets not including the DMZ and internet
+        - Number of total subnets not including internet
         - Number of subnets w/ and w/o sensitive hosts
         - Distance form DMZ to the sensitive host via firewall and subnet
         connections
@@ -211,6 +211,12 @@ class grade:
         return scan_costs, pe_costs, exp_costs 
     
     def segmentation(self):
+        max_distance = len(self.subnets)
+        
+        for coords, reward in self.sens_hosts.items():
+            console.print(coords)
+        
+        
         pass
                 
 
@@ -228,12 +234,6 @@ class grade:
             return 1
             
         
-    def subnet_calcualtions():
-        number_of_subnets = len(self.subnets)
-        
-        #the first subnet is the DMZ of the network
-        pass
-        
-            
+
     
     
