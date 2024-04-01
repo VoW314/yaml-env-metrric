@@ -41,6 +41,13 @@ the subnet 2 and 3 directly, then this would be less secure than just connecting
 
 https://docs.google.com/presentation/d/1SuRPHGwO-Lcoj1oZTQPTOEVT97nqyIbn7Nkk72cqkH0/edit?usp=sharing
 
+
+----
+### Related Repositories
+
+This repository is currently a WIP that uses tensorflow to generate YAML environments to be validated by this repository. This would allow for more automated generation of YAML files. 
+https://github.com/VoW314/yaml_environmental_generation 
+
 ------
 ### References
 
